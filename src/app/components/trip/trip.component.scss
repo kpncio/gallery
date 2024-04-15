@@ -1,0 +1,47 @@
+@import '../../../colors.scss';
+
+/*Trip*/
+h1 {
+    margin: 0;
+    padding: 0;
+    background: $white;
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+h2 {
+    font-size: 24pt;
+    text-align: center;
+    font-family: 'Lora', serif;
+}
+
+h3 {
+    text-align: center;
+    font-family: 'Lora', serif;
+}
+
+h4 {
+    margin: 20px 0;
+    text-align: center;
+
+    a {
+        padding: 5px;
+        color: $dark;
+        font-size: 12pt;
+        margin-top: 10px;
+        transition: 500ms;
+        border-radius: 5px;
+        text-decoration: none;
+        border: 1px solid $dark;
+        background-color: $trans;
+
+        &:hover {
+            color: $white;
+            background-color: $red;
+            border: 1px solid $red;
+        }
+    }
+}

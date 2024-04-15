@@ -1,0 +1,22 @@
+<h1 class="nosel">
+    <img
+        src="https://content.kpnc.io/img/kpnc/symbol/KPNC.webp"
+        alt="KPNC"
+    />
+</h1>
+  
+<main class="nosel">
+    <div class="container">
+        <br>
+        <div class="row" *ngIf="trips != null">
+            <div class="column" *ngFor="let trip of trips | keyvalue" (click)="routerLink(['/trip/' + trip.key])">
+                <div class="cell">
+                    <img src="https://content.kpnc.io/img/trip/{{trip.key}}.webp">
+                </div>
+                <h2>{{trip.value.title}}</h2>
+                <h3>{{trip.value.city}}, {{trip.value.state}}</h3>
+            </div>
+        </div>
+        <app-loader *ngIf="trips == null"></app-loader>
+    </div>
+</main>

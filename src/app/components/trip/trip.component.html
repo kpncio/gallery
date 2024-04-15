@@ -1,0 +1,39 @@
+<h1 class="nosel"  *ngIf="head != undefined">
+    <img
+        src="https://content.kpnc.io/img/trip/{{date}}/{{head.folder}}/{{head.images[0]}}.{{head.format}}"
+        alt="KPNC"
+    />
+</h1>
+  
+<main class="nosel" *ngIf="trips != null">
+    <div class="container">
+        <h2>{{trips[date].title}}</h2>
+        <h3>{{trips[date].city}}, {{trips[date].state}}</h3>
+        <h3>{{month(date.split('.')[1])}}, {{date.split('.')[0]}}</h3>
+
+        <div class="row" *ngIf="ready">
+            <div class="column" *ngFor="let folder of toc">
+                <!-- <div class="cell" (click)="routerLink(['/trip/' + trip.key])">
+                    <img src="https://content.kpnc.io/img/trip/{{trip.key}}.webp">
+                </div>
+                <h2>{{trip.value.title}}</h2>
+                <h3>{{trip.value.city}}, {{trip.value.state}}</h3>  -->
+            </div>
+        </div>
+        <app-loader *ngIf="!ready"></app-loader>
+        
+        <div class="row" *ngIf="vid != null">
+            <div class="column" *ngFor="let folder of toc">
+                <!-- <div class="cell" (click)="routerLink(['/trip/' + trip.key])">
+                    <img src="https://content.kpnc.io/img/trip/{{trip.key}}.webp">
+                </div>
+                <h2>{{trip.value.title}}</h2>
+                <h3>{{trip.value.city}}, {{trip.value.state}}</h3>  -->
+            </div>
+        </div>
+        <app-loader *ngIf="vid == null"></app-loader>
+
+        <h4><a href="https://archive.kpnc.io/trip/{{date}}.zip">Download RAWs</a></h4>
+    </div>
+</main>
+<app-loader *ngIf="trips == null"></app-loader>
