@@ -10,7 +10,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { HomeComponent } from './components/home/home.component';
 import { TripComponent } from './components/trip/trip.component';
+import { TripDirective } from './components/trip/trip.directive';
 import { AppComponent } from './app.component';
+import { VideoComponent } from './components/video/video.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AppComponent } from './app.component';
     LoaderComponent,
     HeaderComponent,
     FooterComponent,
-    UnknownComponent
+    UnknownComponent,
+    TripDirective,
+    VideoComponent
   ],
   imports: [
     CommonModule,

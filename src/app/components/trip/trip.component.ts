@@ -1,16 +1,6 @@
 import { FetchService } from '../../services/fetch.service';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, NgZone } from '@angular/core';
-
-export interface IToc {
-  folder: string;
-  lfolder: string | null;
-  ofolder: string | null;
-  format: string;
-  lformat: string | null;
-  oformat: string | null;
-  images: string[];
-};
 
 export interface ITrip {
   [date: string]: {
@@ -22,10 +12,24 @@ export interface ITrip {
   };
 };
 
+export interface IToc {
+  folder: string;
+  lfolder?: string;
+  ofolder?: string;
+  format: string;
+  lformat?: string;
+  oformat?: string;
+  media: {
+    [name: string]: number[];
+  };
+};
+
 export interface IVid {
   [date: string]: {
     format: string;
-    videos: string[];
+    media: {
+      [name: string]: number[];
+    };
   };
 };
 
@@ -34,13 +38,13 @@ export interface IVid {
   templateUrl: './trip.component.html',
   styleUrl: './trip.component.scss'
 })
-export class TripComponent {
-  head: IToc | undefined = undefined;
-  trips: ITrip | null = null;
-  toc: IToc[] | null = null;
-  vid: IVid | null = null;
+export class TripComponent implements OnInit {
   ready: boolean = false;
-  date: string = "";
+  vid?: IVid['date'];
+  date: string = '';
+  trips?: ITrip;
+  toc?: IToc[];
+  head?: IToc;
 
   constructor(private router: Router, private ngZone: NgZone, private route: ActivatedRoute, private fetch: FetchService) {
     if (this.route.snapshot.paramMap.get('date') == null) {
@@ -66,8 +70,33 @@ export class TripComponent {
     });
 
     this.fetch.request('vids').subscribe((response: IVid) => {
-      this.vid = response;
+      this.vid = response[this.date];
+
+      console.log(this.vid);
     });
+  }
+
+  address(tab: IToc | IVid['date'], med: string, opt: number = 0): string {
+    let url = 'https://';
+
+    const img = 'content.kpnc.io/img/trip';
+    const vid = 'video.kpnc.io/trip';
+
+    if ('folder' in tab) {
+      if (opt > 0 && tab.lformat != undefined) {
+        url += `${img}/${this.date}/${tab.folder}/${tab.lfolder}/${med}.${tab.lformat}`
+      } else {
+        url += `${img}/${this.date}/${tab.folder}/${med}.${tab.format}`
+      }
+
+      if (opt == 2) {
+        url = `background-image: url(${url})`
+      }
+    } else {
+      url += `${vid}/${this.date}/${med}.${tab.format}`
+    }
+
+    return url;
   }
 
   month(num: string): string {

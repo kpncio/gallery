@@ -1,39 +1,54 @@
-<h1 class="nosel"  *ngIf="head != undefined">
-    <img
-        src="https://content.kpnc.io/img/trip/{{date}}/{{head.folder}}/{{head.images[0]}}.{{head.format}}"
-        alt="KPNC"
-    />
+<h1 class="nosel" id="gallery--head" *ngIf="head != undefined">
+    <a [attr.href]="address(head, 'header', 0)"
+       [attr.data-pswp-width]="head.media['header'][0]"
+       [attr.data-pswp-height]="head.media['header'][1]"
+       [ngTrip]="true" target="_blank" rel="noreferrer">
+        <img [attr.src]="address(head, 'header', 1)">
+    </a>
 </h1>
+<app-loader *ngIf="head == undefined"></app-loader>
   
-<main class="nosel" *ngIf="trips != null">
+<main class="nosel" *ngIf="trips != undefined">
     <div class="container">
         <h2>{{trips[date].title}}</h2>
         <h3>{{trips[date].city}}, {{trips[date].state}}</h3>
         <h3>{{month(date.split('.')[1])}}, {{date.split('.')[0]}}</h3>
 
-        <div class="row" *ngIf="ready">
-            <div class="column" *ngFor="let folder of toc">
-                <!-- <div class="cell" (click)="routerLink(['/trip/' + trip.key])">
-                    <img src="https://content.kpnc.io/img/trip/{{trip.key}}.webp">
-                </div>
-                <h2>{{trip.value.title}}</h2>
-                <h3>{{trip.value.city}}, {{trip.value.state}}</h3>  -->
+        <div *ngIf="toc != undefined">
+            <div class="row" id="gallery--main" *ngFor="let tab of toc">
+
+                <a [attr.href]="address(tab, media.key, 0)"
+                   [attr.data-pswp-width]="media.value[0]"
+                   [attr.data-pswp-height]="media.value[1]"
+                   [attr.data-cropped]="true" class="column"
+                   *ngFor="let media of tab.media | keyvalue">
+                    <div class="cell" [attr.style]="address(tab, media.key, 2)">
+                        <img [attr.src]="address(tab, media.key, 1)">
+                    </div>
+                </a>
+                <span [ngTrip]="false"></span>
             </div>
         </div>
-        <app-loader *ngIf="!ready"></app-loader>
+        <app-loader *ngIf="toc == undefined"></app-loader>
         
-        <div class="row" *ngIf="vid != null">
-            <div class="column" *ngFor="let folder of toc">
-                <!-- <div class="cell" (click)="routerLink(['/trip/' + trip.key])">
-                    <img src="https://content.kpnc.io/img/trip/{{trip.key}}.webp">
+        <div *ngIf="vid != undefined">
+            <div class="row">
+                <div class="column" *ngFor="let media of vid.media | keyvalue">
+                    <app-video [options]="{
+                        fluid: true,
+                        aspectRatio: '16:9',
+                        autoplay: false,
+                        sources: [{
+                            src: address(vid, media.key, 1),
+                            type: 'video/' + vid.format
+                        }]
+                    }"></app-video>
                 </div>
-                <h2>{{trip.value.title}}</h2>
-                <h3>{{trip.value.city}}, {{trip.value.state}}</h3>  -->
             </div>
         </div>
-        <app-loader *ngIf="vid == null"></app-loader>
+        <app-loader *ngIf="vid == undefined"></app-loader>
 
         <h4><a href="https://archive.kpnc.io/trip/{{date}}.zip">Download RAWs</a></h4>
     </div>
 </main>
-<app-loader *ngIf="trips == null"></app-loader>
+<app-loader *ngIf="trips == undefined"></app-loader>
