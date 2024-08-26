@@ -5,10 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export interface ITrip {
   [date: string]: {
     title: string;
-    focus: string;
+    desc: string;
     country: string;
-    state:  string;
-    city: string;
+    state: string;
+    city?: string;
   };
 };
 
@@ -71,8 +71,6 @@ export class TripComponent implements OnInit {
 
     this.fetch.request('vids').subscribe((response: IVid) => {
       this.vid = response[this.date];
-
-      console.log(this.vid);
     });
   }
 

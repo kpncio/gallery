@@ -7,7 +7,8 @@
                     <img src="https://content.kpnc.io/img/trip/{{trip.key}}.webp">
                 </div>
                 <h2>{{trip.value.title}}</h2>
-                <h3>{{trip.value.city}}, {{trip.value.state}}</h3>
+                <h3 *ngIf="trip.value.city == undefined">{{trip.value.state}}</h3>
+                <h3 *ngIf="trip.value.city != undefined">{{trip.value.city}}, {{trip.value.state}}</h3>
             </div>
         </div>
         <app-loader *ngIf="trips == null"></app-loader>
