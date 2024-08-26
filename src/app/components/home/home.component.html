@@ -4,7 +4,7 @@
         <div class="row" *ngIf="trips != null">
             <div class="column" *ngFor="let trip of trips | keyvalue" (click)="routerLink(['/trip/' + trip.key])">
                 <div class="cell">
-                    <img src="https://content.kpnc.io/img/trip/{{trip.key}}.webp">
+                    <img src="https://content.kpnc.io/img/trip/{{trip.key}}/{{trip.key}}.webp">
                 </div>
                 <h2>{{trip.value.title}}</h2>
                 <h3 *ngIf="trip.value.city == undefined">{{trip.value.state}}</h3>
