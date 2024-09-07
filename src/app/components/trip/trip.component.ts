@@ -7,7 +7,7 @@ export interface ITrip {
     title: string;
     desc: string;
     country: string;
-    state: string;
+    region: string;
     city?: string;
   };
 };

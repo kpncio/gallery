@@ -11,8 +11,8 @@
 <main class="nosel" *ngIf="trips != undefined">
     <div class="container">
         <h2>{{trips[date].title}}</h2>
-        <h3 *ngIf="trips[date].city == undefined">{{trips[date].state}}</h3>
-        <h3 *ngIf="trips[date].city != undefined">{{trips[date].city}}, {{trips[date].state}}</h3>
+        <h3 *ngIf="trips[date].city == undefined">{{trips[date].region}}</h3>
+        <h3 *ngIf="trips[date].city != undefined">{{trips[date].city}}, {{trips[date].region}}</h3>
         <h3>{{month(date.split('.')[1])}}, {{date.split('.')[0]}}</h3>
 
         <div *ngIf="toc != undefined">
